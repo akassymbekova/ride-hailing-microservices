@@ -1,6 +1,14 @@
-# Ride Hail
+# 🚖 Ride Hailing Microservices
+
+A distributed ride-hailing platform built with Go using a microservice architecture. The system demonstrates asynchronous communication with RabbitMQ, PostgreSQL persistence, Dockerized deployment, and scalable backend service design.
 
 A microservices-based ride-hailing backend written in Go. The system orchestrates the full ride lifecycle—from passenger request through driver matching, real-time location tracking, and ride completion—using PostgreSQL (PostGIS), RabbitMQ, and WebSockets.
+
+![Go](https://img.shields.io/badge/Go-1.24-00ADD8?logo=go)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?logo=postgresql)
+![RabbitMQ](https://img.shields.io/badge/RabbitMQ-Message%20Broker-orange?logo=rabbitmq)
+![Docker](https://img.shields.io/badge/Docker-Compose-blue?logo=docker)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ## Architecture
 
