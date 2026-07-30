@@ -1,0 +1,9 @@
+
+.DS_Store
+project_full_code.txt
+# compiled binary name if built separately
+/ride-service
+*.exe
+*.exe~
+*~
+ride-hail-system

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 1. СУБД Postgres с поддержкой PostGIS
+  postgres:
+    image: postgis/postgis:15-3.3
+    container_name: ride_hail_postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-ridehail_db}
+      POSTGRES_USER: ${DB_USER:-ridehail_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ridehail_pass}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-ridehail_user} -d ${DB_NAME:-ridehail_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Брокер сообщений RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: ride_hail_rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-guest}
+    ports:
+      - "${RABBITMQ_PORT:-5672}:5672"       # Порт для подключения Go-сервисов (AMQP)
+      - "15672:15672" # Порт для веб-панели управления (Username: guest, Password: guest)
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
